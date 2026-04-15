@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sistemas de Seguridad</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <header>
+    <a href="index.html">
+      <img src="LOGO-GLADIO.png" alt="GLADIO" >
+    </a>
+<nav>
+    <div class="nav-links">
+      <a href="servicios.html">Servicios</a>
+      <a href="casos_de_exito.html">Casos de éxito</a>
+      <a href="contacto.html">Contacto</a>
+    </div>
+
+    <div class="nav-actions">
+      <a target="_blank" href="https://wa.me/525559519070?text=Hola, quiero visitar su showroom`" class="btn-showroom">Visitar showroom</a>
+
+    </div>
+  </nav>
+  </header>
+  <main>
+    <style>
+      .casos-section {
+        padding: 60px 40px;
+        background: var(--bg-primary);
+      }
+
+      .casos-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .casos-header h2 {
+        font-size: 13px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--accent-color);
+        margin-bottom: 10px;
+      }
+
+      .casos-header h1 {
+        font-size: 32px;
+        font-weight: 500;
+        color: #fff;
+      }
+
+      .casos-header span {
+        color: var(--brand-primary);
+      }
+
+      .filters {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 40px;
+      }
+
+      .filter {
+        position: relative;
+      }
+
+      .filter-label {
+        display: block;
+        padding: 8px 20px;
+        border: 1px solid #333;
+        color: #aaa;
+        font-size: 12px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        background: transparent;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+
+      .filter-label:hover {
+        border-color: var(--accent-color);
+        color: #fff;
+      }
+
+      .filter-label.active {
+        border-color: var(--brand-primary);
+        color: var(--brand-primary);
+      }
+
+      .filter-options {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #111;
+        border: 1px solid #333;
+        min-width: 160px;
+        z-index: 10;
+      }
+
+      .filter-options div {
+        padding: 10px 16px;
+        font-size: 12px;
+        color: #aaa;
+        cursor: pointer;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: background 0.15s;
+      }
+
+      .filter-options div:hover {
+        background: #1a1a1a;
+        color: #fff;
+      }
+
+      .filter-options div.selected {
+        color: var(--brand-primary);
+      }
+
+      .filter.open .filter-options {
+        display: block;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1px;
+        background: #1a1a1a;
+      }
+
+      .card {
+        background: #0d0d0d;
+        overflow: hidden;
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        border-bottom: 1px solid #1a1a1a;
+      }
+
+      .card-header h3 {
+        font-size: 10px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--accent-color);
+      }
+
+      .card-header img {
+        height: 24px;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+        opacity: 0.6;
+      }
+/* .card-img {
+  height: 200px; /* o el alto que tengas definido 
+  overflow: hidden;
+  position: relative;
+      } */
+
+.card-img video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* cubre todo el espacio, recortando si es necesario */
+}
+      .card-img {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s;
+      }
+
+      .card:hover .card-img img {
+        transform: scale(1.04);
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .card-client {
+        font-size: 16px;
+        font-weight: 500;
+        color: #fff;
+        margin-bottom: 4px;
+      }
+
+      .card-location {
+        font-size: 11px;
+        color: #555;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+
+      .card-field {
+        margin-bottom: 12px;
+      }
+
+      .card-field-label {
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--brand-primary);
+        margin-bottom: 4px;
+      }
+
+      .card-field-text {
+        font-size: 13px;
+        color: #aaa;
+        line-height: 1.6;
+      }
+
+      .card-product {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #1a1a1a;
+      }
+
+      .card-product img {
+        width: 32px;
+        opacity: 0.7;
+      }
+
+      .card-product a {
+        font-size: 12px;
+        color: var(--client-color);
+        letter-spacing: 1px;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .card-product a:hover {
+        border-bottom: 1px solid var(--client-color);
+      }
+
+      .card-footer {
+        padding: 14px 20px;
+        border-top: 1px solid #1a1a1a;
+      }
+
+      .card-footer a {
+        display: block;
+        text-align: center;
+        padding: 10px;
+        border: 1px solid #333;
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #666;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+
+      .card-footer a:hover {
+        border-color: #25d366;
+        color: #25d366;
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 40px;
+      }
+
+      .pagination button {
+        width: 36px;
+        height: 36px;
+        border: 1px solid #333;
+        background: transparent;
+        color: #666;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .pagination button:hover {
+        border-color: #fff;
+        color: #fff;
+      }
+
+      .pagination button.active {
+        border-color: var(--brand-primary);
+        color: var(--brand-primary);
+      }
+
+      .no-results {
+        text-align: center;
+        padding: 60px 20px;
+        color: #444;
+        font-size: 13px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        grid-column: 1/-1;
+      }
+    </style>
+
+    <section class="casos-section">
+      <div class="casos-header">
+        <h2>Proyectos realizados</h2>
+        <h1>Casos de <span>éxito</span></h1>
+      </div>
+
+      <!-- <div class="filters" id="filters">
+        <div class="filter" data-type="marca" data-default="Marca">
+          <div class="filter-label">Marca</div>
+          <div class="filter-options"></div>
+        </div>
+        <div class="filter" data-type="vertical" data-default="Vertical">
+          <div class="filter-label">Vertical</div>
+          <div class="filter-options"></div>
+        </div>
+        <div class="filter" data-type="segmento" data-default="Segmento">
+          <div class="filter-label">Segmento</div>
+          <div class="filter-options"></div>
+        </div>
+      </div> -->
+
+      <div class="grid" id="grid"></div>
+      <div class="pagination" id="pagination"></div>
+    </section>
+
+    <script>
+      const data = [
+        {
+          marca: 'GILARDONI',
+          vertical: 'INSPECCION',
+          segmento: 'CEDIS',
+           title: 'CENTROS DE DISTRIBUCIÓN',
+            nombre: 'COCA COLA',
+             ubicacion: 'Vallejo, Ciudad de México', 
+             necesidad: 'Control Acceso a la planta industrial de Coca Cola para evitar la entrada de objetos peligrosos o no deseados.', 
+             problema: 'La planta industrial de Coca Cola no cuenta con un sistema eficiente para controlar el acceso y evitar la entrada de objetos peligrosos o no deseados.', solucion: 'Se instaló un equipo de Rayos X con el fin de evitar el acceso de estos materiales y preservar la máxima seguridad en la planta.', producto: 'FEP ME 536', links: ['https://rseguridad.com/producto/maquina-de-rayos-x-argo-536/'], iconografia: ['https://rseguridad.com/wp-content/uploads/2023/04/maquina-rayos-x.png'], images: ['./src/vehicular.mp4'], logo: 'https://rseguridad.com/wp-content/uploads/2025/10/gilardoni.png', url: 'whatsapp://send?phone=525559519070&text=Hola,%20me%20gustaría%20saber%20más%20información%20acerca%20del%20FEP%20ME%20536%20instalado%20en%20CEDIS%20Coca%20Cola%20Vallejo%20que%20vi%20en%20la%20página%20web.'
+        },
+        { marca: 'CIAS', vertical: 'INTRUSION', segmento: 'RETAIL', title: 'RETAIL', nombre: 'Suburbia Tultitlan', ubicacion: 'Gustavo A. Madero, Ciudad de México', necesidad: 'Proteger portón de acceso por la parte trasera de la tienda y así evitar intrusiones.', problema: 'Evitar robos en bodega.', solucion: 'Antenas de microondas en portón.', producto: 'Murena Compact +', links: ['https://rseguridad.com/producto/radar-microondas-murena-compact-plus/'], iconografia: ['https://rseguridad.com/wp-content/uploads/2023/04/barreras-microondas.png'], images: ['./src/vehicular.mp4'], logo: 'https://rseguridad.com/wp-content/uploads/2025/02/cias.png', url: 'whatsapp://send?phone=525559519070&text=Hola' },
+        { marca: 'BFT', vertical: 'ACCESO VEHICULAR', segmento: 'PRISIONES', title: 'CENTRO PENITENCIARIO', nombre: 'CENTRO PENITENCIARIO', ubicacion: 'Coatlán del Río, Morelos', necesidad: 'Delimitar perímetro del Cefereso.', problema: 'La falta de delimitación clara del perímetro del Cefereso representa un riesgo para la seguridad, permitiendo accesos no controlados.', solucion: 'Se instalaron 6 bolardos de la marca BFT en frente de la entrada principal del reclusorio.', producto: 'XPASS 330/1200 BODY L', links: ['https://rseguridad.com/producto/bolardo-antiterrorismo-k12-xpass-b-330-1200-l/'], iconografia: ['https://rseguridad.com/wp-content/uploads/2023/04/bolardo-1-150x150.png'], images: ['./src/vehicular.mp4'], logo: 'https://rseguridad.com/wp-content/uploads/elementor/thumbs/bft-1-r24wzclwmn5y6kzlj0queyj56v6e323bja6vfj19bk.png', url: 'whatsapp://send?phone=525559519070&text=Hola' },
+        { marca: 'SAIMA', vertical: 'ACCESO PEATONAL', segmento: 'BANCA', title: 'BANCA', nombre: 'City Bunker', ubicacion: 'San Pedro Garza García, Nuevo León', necesidad: 'Sustituir 2 Esclusas ELE 2000 monobloque que tienen 23 años de uso por 2 nuevas Esclusas ELE 2000 armables.', problema: 'Una de las dos Esclusas comienza a tener problemas y, por temas de seguridad y su antigüedad, requieren ser sustituidas.', solucion: 'Cambio de 2 Esclusas ELE 2000 armables en color negro mate, a solicitud del Cliente.', producto: 'ELE 2000', links: ['https://rseguridad.com/producto/esclusa-ele-2000/'], iconografia: ['https://rseguridad.com/wp-content/uploads/2023/04/esclusa-1.png'], images: ['./src/vehicular.mp4'], logo: 'https://rseguridad.com/wp-content/uploads/2025/05/Logo-SAIMA.png', url: 'whatsapp://send?phone=525559519070&text=Hola' }
+      ];
+
+      let activeFilters = { marca: null, vertical: null, segmento: null };
+      let currentPage = 1;
+      const perPage = 6;
+
+      function getUnique(key) { return [...new Set(data.map(d => d[key]))]; }
+
+      function buildFilters() {
+        document.querySelectorAll('.filter').forEach(f => {
+          const type = f.dataset.type;
+          const opts = f.querySelector('.filter-options');
+          const label = f.querySelector('.filter-label');
+          const defaultText = f.dataset.default;
+
+          const all = document.createElement('div');
+          all.textContent = 'Todas';
+          all.classList.add('selected');
+          all.addEventListener('click', () => {
+            activeFilters[type] = null;
+            opts.querySelectorAll('div').forEach(d => d.classList.remove('selected'));
+            all.classList.add('selected');
+            label.textContent = defaultText;
+            label.classList.remove('active');
+            f.classList.remove('open');
+            currentPage = 1; renderGrid();
+          });
+          opts.appendChild(all);
+
+          getUnique(type).forEach(val => {
+            const d = document.createElement('div');
+            d.textContent = val;
+            d.addEventListener('click', () => {
+              activeFilters[type] = val;
+              opts.querySelectorAll('div').forEach(x => x.classList.remove('selected'));
+              d.classList.add('selected');
+              label.textContent = val;
+              label.classList.add('active');
+              f.classList.remove('open');
+              currentPage = 1; renderGrid();
+            });
+            opts.appendChild(d);
+          });
+
+          label.addEventListener('click', () => {
+            document.querySelectorAll('.filter').forEach(x => { if (x !== f) x.classList.remove('open'); });
+            f.classList.toggle('open');
+          });
+        });
+
+        document.addEventListener('click', e => {
+          if (!e.target.closest('.filter')) {
+            document.querySelectorAll('.filter').forEach(x => x.classList.remove('open'));
+          }
+        });
+      }
+
+      function renderGrid() {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = '';
+        let filtered = data.filter(item =>
+          (!activeFilters.marca || item.marca === activeFilters.marca) &&
+          (!activeFilters.vertical || item.vertical === activeFilters.vertical) &&
+          (!activeFilters.segmento || item.segmento === activeFilters.segmento)
+        );
+        const total = Math.ceil(filtered.length / perPage);
+        const page = filtered.slice((currentPage - 1) * perPage, currentPage * perPage);
+        if (!page.length) {
+          grid.innerHTML = '<div class="no-results">Sin resultados</div>';
+          document.getElementById('pagination').innerHTML = '';
+          return;
+        }
+        page.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+      <div class="card-header"><h3>${item.title}</h3><img src="${item.logo}" alt="${item.marca}"></div>
+      <div class="card-img">
+  <video 
+    src="${item.images[0]}" 
+    poster="" 
+    muted 
+    loop 
+    playsinline
+    onmouseenter="this.play()" 
+    onmouseleave="this.pause(); this.currentTime = 0;"
+  ></video>
+</div>
+      <div class="card-body">
+        <div class="card-client">${item.nombre}</div>
+        <div class="card-location">${item.ubicacion}</div>
+        <div class="card-field"><div class="card-field-label">Necesidad</div><div class="card-field-text">${item.necesidad}</div></div>
+        <div class="card-field"><div class="card-field-label">Solución</div><div class="card-field-text">${item.solucion}</div></div>
+        <div class="card-product"><img src="${item.iconografia[0]}" alt="producto"><a  target="_blank">${item.producto}</a></div>
+      </div>
+      <div class="card-footer"><a href="${item.url}">Solicitar información</a></div>
+    `;
+          grid.appendChild(card);
+        });
+        renderPagination(total);
+      }
+
+      function renderPagination(total) {
+        const p = document.getElementById('pagination');
+        p.innerHTML = '';
+        if (total <= 1) return;
+        for (let i = 1; i <= total; i++) {
+          const btn = document.createElement('button');
+          btn.textContent = i;
+          if (i === currentPage) btn.classList.add('active');
+          btn.addEventListener('click', () => { currentPage = i; renderGrid(); });
+          p.appendChild(btn);
+        }
+      }
+
+      buildFilters();
+      renderGrid();
+    </script>
+  </main>
+
+
+ <footer class="footer" role="contentinfo">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="tagline">EXPERTOS EN SEGURIDAD</div>
+        <div class="tagline" style="margin-top:2px">CALIDAD | SERVICIO | EFICIENCIA</div>
+        <div class="address">
+          <a href="https://maps.app.goo.gl/Dep9gbhAG2pJLL9z6" target="_blank">
+            Monte Elbruz 132 Piso 3 / 301-302,<br>
+            Polanco V Secc, Miguel Hidalgo,<br>
+            11560 CDMX
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Síguenos</h4>
+        <div class="social-row">
+          <a href="https://www.linkedin.com/company/rseguridad/" target="_blank" title="LinkedIn">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M4.98 3.5C4.98 4.881 3.87 6 2.5 6S.02 4.881.02 3.5C.02 2.12 1.13 1 2.5 1s2.48 1.12 2.48 2.5zM.48 8.5h4V23h-4V8.5zm6.32 0h3.84v2h.06c.53-1 1.84-2.06 3.78-2.06 4.04 0 4.78 2.66 4.78 6.12V23h-4v-7.6c0-1.82-.03-4.15-2.53-4.15-2.54 0-2.93 1.98-2.93 4.02V23h-4V8.5z" />
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/RSeguridad" target="_blank" title="Facebook">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M22.676 0H1.324C.593 0 0 .593 0 1.324v21.352C0 23.408.593 24 1.324 24H12.82v-9.294H9.692v-3.622h3.128V8.41c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.097 2.794.141v3.24h-1.918c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.592 1.323-1.324V1.324C24 .593 23.408 0 22.676 0" />
+            </svg>
+          </a>
+          <a href="https://www.youtube.com/@RSeguridad_MX" target="_blank" title="YouTube">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
+            </svg>
+          </a>
+          <a href="https://wa.me/525559519070" target="_blank" title="WhatsApp">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
+            </svg>
+          </a>
+          <a href="tel:+525559519070" title="Teléfono">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.onscroll = function () {
+      const header = document.querySelector("header");
+      if (window.scrollY > 50) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    };
+
+  </script>
+
+</body>
+
+</html>

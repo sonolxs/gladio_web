@@ -1,0 +1,402 @@
+:root {
+    /* --- COLORES GLOBALES --- */
+    --bg-primary: #000000;
+    --bg-secondary: #7b3b3b;
+    --bg-hero-gradient: linear-gradient(135deg, #b6b6b6, #7b3b3b);
+    --bg-card: #7b3b3b;
+    --bg-chat: #1e293b;
+
+    --text-main: rgb(25, 25, 25);
+    --text-nav: rgb(60, 60, 60);
+    --text-card-h3: rgb(25, 25, 25);
+    --text-hero: #b9d7d9;
+    --brand-primary: #ff0000;
+    /* Header H1 */
+    --accent-color: #668284;
+    /* Botones y Tech message */
+    --client-color: #9aaf00;
+
+    /* --- FOOTER VARIABLES --- */
+    --footer-bg: #2c0505;
+    --footer-text-primary: #e3e3e3;
+    --footer-text-secondary: #3d5a6b;
+    --footer-text-muted: #556b78;
+    --footer-text-faint: #7a8e97;
+    --footer-border: rgba(0, 0, 0, 0.15);
+    --footer-border-strong: rgba(0, 0, 0, 0.35);
+    --footer-input-bg: #1a1a1a;
+    --footer-hover-bg: rgba(0, 0, 0, 0.07);
+    --footer-btn-bg: #1a1a1a;
+    --footer-btn-text: #dbdbdb;
+    --footer-letter-spacing: 0.08em;
+    --footer-radius: 5px;
+    --footer-radius-circle: 50%;
+
+    /* --- DIMENSIONES Y SPACING --- */
+    --padding-section: 60px 40px;
+    --padding-hero: 160px 40px;
+    --padding-header: 20px 40px;
+    --radius-standard: 10px;
+    --font-main: Arial, sans-serif;
+}
+
+/* --- RESET & BASE --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding-top: 130px;
+    font-family: var(--font-main);
+    background: var(--bg-primary);
+    color: var(--text-main);
+}
+
+/* --- HEADER & NAV --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Alineación vertical centrada */
+    padding: var(--padding-header);
+    background: var(--bg-secondary);
+
+    /* --- Nuevas propiedades --- */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.12s ease;
+    /* Suaviza el cambio de tamaño */
+    box-sizing: border-box;
+}
+
+/* Clase que aplicaremos con JS al bajar */
+header.scrolled {
+    padding: 10px 5%;
+    /* Reduce el padding original */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Controlamos que el logo también se reduzca */
+header img {
+    height: 80px;
+    transition: height 0.2s ease;
+}
+
+header.scrolled img {
+    height: 55px;
+    /* Tamaño más pequeño al bajar */
+}
+header.scrolled a {
+       transform: scale(0.75); /* Encoge todo el texto al 90% de su tamaño original */
+    transform-origin: left center;
+}
+nav {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* Esto hace que el nav use todo el espacio entre el logo y el final */
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;          /* Aumentamos el espacio entre opciones */
+  margin: 0 auto;     /* EL TRUCO: Centra este grupo perfectamente */
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgb(33, 33, 33);
+  font-size: 1.2rem;  /* Hacemos la letra más grande (aprox 19px) */
+  font-weight: 600;   /* Un poco más gruesa para que tenga autoridad */
+  text-transform: uppercase; /* Opcional: le da un look más serio y "principal" */
+  letter-spacing: 1px;       /* Espaciado entre letras para elegancia */
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text-hero); /* Un color gris claro al pasar el mouse */
+}
+
+/* El botón de Showroom */
+.btn-showroom {
+  padding: 12px 28px;    /* Más grande y cómodo para hacer clic */
+  font-size: 1rem;
+  border: 2px solid white; /* Añadimos un borde para darle más peso visual */
+  background-color: transparent; 
+  color: white;
+  border-radius: 50px;   /* Bordes totalmente redondeados (estilo cápsula) */
+  transition: all 0.3s ease;
+}
+
+.btn-showroom:hover {
+  background-color: white;
+  color: var(--bg-secondary);
+
+  /*transform: translateY(-20px);  Pequeño salto hacia arriba */
+  
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Sombra para dar profundidad */
+}
+
+
+/* nav a {
+    margin-left: 20px;
+    color: var(--text-nav);
+    text-decoration: none;
+} */
+
+/* --- SECCIÓN HERO --- */
+/* .hero {
+    padding: var(--padding-hero);
+    text-align: center;
+    background: var(--bg-hero-gradient);
+} */
+
+.hero h2 {
+    font-size: 40px;
+}
+
+.hero button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: var(--accent-color);
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.hero {
+  position: relative; /* Necesario para contener el video */
+  height: 50vh;      /* Altura opcional (toda la pantalla) */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;   /* Corta lo que sobresalga del video */
+  color: var(--text-hero);
+  ;       /* Color de texto para que resalte */
+}
+
+.video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%; 
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1; /* Lo manda al fondo, detrás del texto */
+  transform: translate(-50%, -50%); /* Centra el video perfectamente */
+  object-fit: cover; /* Hace que el video cubra todo el espacio sin deformarse */
+  filter: brightness(35%); 
+}
+
+.hero-content {
+  z-index: 1; /* Asegura que el texto esté arriba */
+}
+
+
+
+/* --- SERVICIOS --- */
+.services {
+    padding: var(--padding-section);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: var(--radius-standard);
+}
+
+.card h3 {
+    color: var(--text-card-h3);
+}
+
+/* --- DASHBOARD & CHAT --- */
+.dashboard {
+    padding: 40px;
+    display: none;
+}
+
+.chat {
+    margin-top: 20px;
+    background: var(--bg-chat);
+    padding: 20px;
+    border-radius: var(--radius-standard);
+}
+
+.message {
+    margin-bottom: 10px;
+}
+
+.message.client {
+    text-align: right;
+    color: var(--client-color);
+}
+
+.message.tech {
+    text-align: left;
+    color: var(--accent-color);
+}
+
+/* --- FOOTER ESTRUCTURA --- */
+.footer {
+    background: var(--footer-bg);
+    color: var(--footer-text-primary);
+    padding: 1.75rem 2rem 1rem;
+}
+
+.footer-grid {
+    display: flex;
+justify-content: space-between;
+padding-inline: 20%;
+}
+
+.footer-brand .tagline {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--footer-text-primary);
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+}
+
+.footer-brand .address {
+    font-size: 11px;
+    color: var(--footer-text-muted);
+    line-height: 1.5;
+    margin-top: 0.5rem;
+}
+
+.footer-brand .address a {
+    color: var(--footer-text-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.footer-col h4 {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--footer-text-primary);
+    text-transform: uppercase;
+    letter-spacing: var(--footer-letter-spacing);
+    margin-bottom: 0.6rem;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li+li {
+    margin-top: 0.3rem;
+}
+
+.footer-links a {
+    font-size: 12px;
+    color: var(--footer-text-secondary);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.footer-links a:hover {
+    color: var(--footer-text-primary);
+}
+
+.social-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.social-row a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--footer-radius-circle);
+    border: 0.5px solid var(--footer-border);
+    color: var(--footer-text-secondary);
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+}
+
+.social-row a:hover {
+    background: var(--footer-hover-bg);
+    color: var(--footer-text-primary);
+}
+
+/* --- FORMULARIO CONTACTO --- */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.contact-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    background: var(--footer-input-bg);
+    border: 0.5px solid var(--footer-border);
+    border-radius: var(--footer-radius);
+    padding: 6px 8px;
+    font-size: 11px;
+    color: var(--footer-text-primary);
+    font-family: inherit;
+    outline: none;
+    transition: border 0.15s;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: var(--footer-text-faint);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--footer-border-strong);
+}
+
+.btn-submit {
+    background: var(--footer-btn-bg);
+    color: var(--footer-btn-text);
+    border: none;
+    padding: 6px 16px;
+    border-radius: var(--footer-radius);
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+}
+
+.btn-submit:hover {
+    opacity: 0.85;
+}
+
+.footer-bottom {
+    max-width: 1100px;
+    margin: 1.25rem auto 0;
+    padding-top: 0.75rem;
+    border-top: 0.5px solid var(--footer-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.footer-bottom p {
+    font-size: 10px;
+    color: var(--footer-text-faint);
+}
